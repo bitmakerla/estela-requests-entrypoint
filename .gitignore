@@ -1,0 +1,39 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+venv/
+env/
+*.env
+dist/
+build/
+*.egg-info/
+*.egg
+*.swp
+*.swo
+*.log
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependency directories
+env/
+env.bak/
+env1/
+env2/
+
+# Distribution / packaging
+bin/
+include/
+lib/
+local/
+pip-wheel-metadata/
+share/
+python*.egg-info/
+dist/
+build/
+wheels/
+*.egg-info/
