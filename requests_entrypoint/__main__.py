@@ -4,9 +4,6 @@ import sys
 import logging
 import subprocess
 
-from requests_entrypoint.utils import decode_job, get_args_and_env, producer
-from requests_entrypoint.log import init_logging
-
 logging.basicConfig(level=logging.INFO)   
 
 def execute(args, hdlr):
@@ -32,6 +29,8 @@ def run_spider(argv, settings):
     execute(settings=settings)
 
 def setup_and_launch():
+    from requests_entrypoint.utils import decode_job, get_args_and_env
+    from requests_entrypoint.log import init_logging
     try:
         print("Sigo que te sigo")
         job = decode_job()
@@ -55,9 +54,12 @@ def describe_project():
             "project_type": "requests",
             "spiders": ["spider.py", "spider2.py"],
     }
-    return json.dumps(result)
+    print(json.dumps(result))
+    return 0
+    
 
 def main():
+    from estela_requests.utils import producer
     try:
         if producer.get_connection():
             logging.debug("Successful connection to the queue platform.")
