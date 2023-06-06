@@ -20,7 +20,10 @@ def decode_job():
 
 
 def get_args_and_env(msg):
-    args = ["python", str(msg["spider"])]
+    current_directory = os.getcwd()
+    #print("lalal")
+    #print(current_directory)
+    args = ["python", f'{current_directory}/{str(msg["spider"])}']
     env = {
         "ESTELA_SPIDER_JOB": msg["key"],
         "ESTELA_SPIDER_NAME": msg["spider"],

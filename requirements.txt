@@ -1,1 +1,2 @@
-estela-requests @ git+https://github.com/bitmakerla/estela-requests.git
+requests
+estela-queue-adapter @ git+https://github.com/bitmakerla/estela-queue-adapter.git

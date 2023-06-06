@@ -1,11 +1,13 @@
+import json
 import os
 import sys
 import logging
 import subprocess
 
-from estela_requests.requests_wrapper import EstelaWrapper
 from utils import decode_job, get_args_and_env, producer
 from log import init_logging
+
+logging.basicConfig(level=logging.DEBUG)   
 
 def execute(args, hdlr):
     """Execute the spider from the command line.
@@ -14,10 +16,18 @@ def execute(args, hdlr):
 
     python spider.py
     """
+#    print("Executing:", " ".join(args))
+#    current_directory = os.getcwd()
+#    print(current_directory)
+ #   current_directory = os.get_cwd()
+ #   print("Current directory:", current_directory)
     command = " ".join(args)
+    print("Running commands:", command)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
     for line in process.stdout:
         logging.info("Subprocess output: %s", line)
+    for line in process.stderr:
+        logging.error("Subprocess error: %s", line)
     returncode = process.wait()
 
     print("Codigo de Salida: ", returncode)
@@ -32,16 +42,26 @@ def setup_and_launch():
         job = decode_job()
         assert job,  "JOB_INFO must be set"
         args, env = get_args_and_env(job)
+        print("doing things")
+        print(args)
         os.environ.update(env)
-        loghdlr = init_logging()
-        loghdlr.setLevel(logging.DEBUG)
+        #loghdlr = init_logging()
+        #loghdlr.setLevel(logging.DEBUG)
 
     except Exception:
         logging.exception("Environment variables were not defined properly.")
         raise
 
+    print("executing cosasa")
     # run code.
-    execute(args, loghdlr)
+    execute(args, None)
+
+def describe_project():
+    result = {
+            "project_type": "requests",
+            "spiders": ["spider.py", "spider2.py"],
+    }
+    return json.dumps(result)
 
 def main():
     try:
