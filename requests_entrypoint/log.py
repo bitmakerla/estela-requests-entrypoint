@@ -2,10 +2,9 @@ import logging
 import os
 import sys
 import time
-import warnings
 
 from estela_queue_adapter import queue_noisy_libraries
-from utils import producer
+from requests_entrypoint.utils import producer
 
 _stderr = sys.stderr
 
@@ -101,7 +100,6 @@ class StdoutLogger:
     def flush(self):
         if self.buf:
             self.buf = ""
-
 
     def writelines(self, lines):
         for line in lines:

@@ -4,10 +4,10 @@ import sys
 import logging
 import subprocess
 
-from utils import decode_job, get_args_and_env, producer
-from log import init_logging
+from requests_entrypoint.utils import decode_job, get_args_and_env, producer
+from requests_entrypoint.log import init_logging
 
-logging.basicConfig(level=logging.DEBUG)   
+logging.basicConfig(level=logging.INFO)   
 
 def execute(args, hdlr):
     """Execute the spider from the command line.
@@ -16,11 +16,6 @@ def execute(args, hdlr):
 
     python spider.py
     """
-#    print("Executing:", " ".join(args))
-#    current_directory = os.getcwd()
-#    print(current_directory)
- #   current_directory = os.get_cwd()
- #   print("Current directory:", current_directory)
     command = " ".join(args)
     print("Running commands:", command)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
@@ -45,14 +40,13 @@ def setup_and_launch():
         print("doing things")
         print(args)
         os.environ.update(env)
-        #loghdlr = init_logging()
-        #loghdlr.setLevel(logging.DEBUG)
+        loghdlr = init_logging()
+        loghdlr.setLevel(logging.DEBUG)
 
     except Exception:
         logging.exception("Environment variables were not defined properly.")
         raise
 
-    print("executing cosasa")
     # run code.
     execute(args, None)
 

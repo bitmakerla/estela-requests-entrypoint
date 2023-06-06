@@ -6,8 +6,6 @@ from estela_queue_adapter.get_interface import get_producer_interface
 from urllib.parse import urljoin
 
 url = "https://stackoverflow.com/questions/tagged/awk"
-crequests = RequestsInterface()
-#producer = get_producer_interface()
 wrapper = EstelaWrapper()
 
 counter = 4

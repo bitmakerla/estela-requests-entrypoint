@@ -8,21 +8,8 @@ def decode_job():
     if job_data.startswith("{"):
         return json.loads(job_data)
 
-
-# TODO: Add arguments to the spider 
-# def get_api_args(args_dict):
-#     if not args_dict:
-#         return []
-#     args = []
-#     for key, value in dict(args_dict).items():
-#         args += ["-a", "{}={}".format(key, value)]
-#     return args
-
-
 def get_args_and_env(msg):
     current_directory = os.getcwd()
-    #print("lalal")
-    #print(current_directory)
     args = ["python", f'{current_directory}/{str(msg["spider"])}']
     env = {
         "ESTELA_SPIDER_JOB": msg["key"],

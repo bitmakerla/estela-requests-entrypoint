@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 setup(
     name="estela_requests_entrypoint",
     version="0.0.1-a1",
-    description="Scrapy entrypoint for Estela job runner",
+    description="Requests entrypoint for Estela job runner",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     packages=find_packages(),
