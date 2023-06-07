@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 
 url = "https://stackoverflow.com/questions/tagged/awk"
 wrapper = EstelaWrapper()
+spider_name = "stackoverflow"
 
 counter = 4
 def get_pages(act_url, i):

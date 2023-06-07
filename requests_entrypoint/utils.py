@@ -1,7 +1,6 @@
 import json
+import inspect
 import os
-
-from estela_queue_adapter import get_producer_interface
 
 def decode_job():
     job_data = os.getenv("JOB_INFO", "")
@@ -26,4 +25,5 @@ def setup_scrapy_conf():
     if not os.path.exists("scrapy.cfg"):
         open("scrapy.cfg", "w").close()
 
+from estela_queue_adapter import get_producer_interface
 producer = get_producer_interface()
