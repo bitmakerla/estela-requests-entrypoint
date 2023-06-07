@@ -59,7 +59,7 @@ def describe_project():
     
 
 def main():
-    from estela_requests.utils import producer
+    from requests_entrypoint.utils import producer
     try:
         if producer.get_connection():
             logging.debug("Successful connection to the queue platform.")
