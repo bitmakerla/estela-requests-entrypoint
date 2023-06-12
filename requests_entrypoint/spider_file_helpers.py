@@ -32,7 +32,7 @@ def get_file_by_spider_name(directory: str, spider_name: str) -> str:
                         if match.group(1) == spider_name:
                             return file_name
                     except Exception:
-                        pass
+                        pass  #TODO: review this.
     except Exception as e:
         raise ProjectStructureException(str(e))
 
