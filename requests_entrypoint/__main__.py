@@ -15,15 +15,15 @@ def execute(args, hdlr):
     python spider.py
     """
     command = " ".join(args)
-    print("Running commands:", command)
+    logger.INFO("Running command: %s", command)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
     for line in process.stdout:
-        logger.info("Subprocess output: %s", line)
+        logger.info("%s", line)
     for line in process.stderr:
-        logger.error("Subprocess error: %s", line)
+        logger.error("%s", line)
     returncode = process.wait()
 
-    print("Codigo de Salida: ", returncode)
+    logger.info("Exit Code: ", returncode)
 
 def setup_and_launch():
     from requests_entrypoint.utils import decode_job, get_args_and_env
@@ -79,4 +79,3 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-    #sys.exit(describe_project())

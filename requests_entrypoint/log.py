@@ -45,8 +45,6 @@ def init_logging():
         lg.addHandler(nh)
     # # Redirect standard output and error
     sys.stdout = StdoutLogger(False, "UTF-8")
-    print("it should send to logs in kafka.")
-
     return hdlr
 
 
