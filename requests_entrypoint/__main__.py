@@ -23,7 +23,7 @@ def execute(args, hdlr):
         logger.error("%s", line)
     returncode = process.wait()
 
-    logger.info("Exit Code: ", returncode)
+    logger.info("Exit Code: %s", returncode)
 
 def setup_and_launch():
     from requests_entrypoint.utils import decode_job, get_args_and_env
