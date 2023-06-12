@@ -28,8 +28,11 @@ def get_file_by_spider_name(directory: str, spider_name: str) -> str:
                 with open(os.path.join(directory, file_name), "r") as file:
                     source_code = file.read()
                     match = re.search(r"spider_name\s*=\s*['\"]([^'\"]+)['\"]", source_code)
-                    if match.group(1) == spider_name:
-                        return file_name
+                    try:
+                        if match.group(1) == spider_name:
+                            return file_name
+                    except Exception:
+                        pass
     except Exception as e:
         raise ProjectStructureException(str(e))
 
