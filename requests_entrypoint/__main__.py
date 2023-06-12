@@ -15,7 +15,7 @@ def execute(args, hdlr):
     python spider.py
     """
     command = " ".join(args)
-    logger.INFO("Running command: %s", command)
+    logger.info("Running command: %s", command)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
     for line in process.stdout:
         logger.info("%s", line)
