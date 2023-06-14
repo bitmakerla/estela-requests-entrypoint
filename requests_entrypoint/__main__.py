@@ -4,6 +4,7 @@ import re
 import sys
 import logging
 import subprocess
+from requests_entrypoint.exceptions import SpiderCodeException
 
 logger = logging.getLogger("requests_entrypoint")
 
@@ -14,16 +15,18 @@ def execute(args, hdlr):
 
     python spider.py
     """
-    command = " ".join(args)
-    logger.info("Running command: %s", command)
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
-    for line in process.stdout:
-        logger.info("%s", line)
-    for line in process.stderr:
-        logger.error("%s", line)
-    returncode = process.wait()
-
-    logger.info("Exit Code: %s", returncode)
+    try:
+        command = " ".join(args)
+        logger.info("Running command: %s", command)
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ, check=True)
+        for line in process.stdout:
+            logger.info("%s", line)
+        for line in process.stderr:
+            logger.error("%s", line)
+        returncode = process.wait()
+        logger.info("Exit Code: %s", returncode)
+    except subprocess.CalledProcessError as e:
+        raise SpiderCodeException(e.output)
 
 def setup_and_launch():
     from requests_entrypoint.utils import decode_job, get_args_and_env
