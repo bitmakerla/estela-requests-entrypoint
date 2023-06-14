@@ -17,7 +17,7 @@ def execute(args, hdlr):
     """
     command = " ".join(args)
     logger.info("Running command: %s", command)
-    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ, check=True)
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
     for line in process.stdout:
         logger.info("%s", line)
     for line in process.stderr:
