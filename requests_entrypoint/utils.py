@@ -17,6 +17,7 @@ def get_args_and_env(msg):
         "ESTELA_AUTH_TOKEN": msg["auth_token"],
         "ESTELA_COLLECTION": msg["collection"],
         "ESTELA_UNIQUE_COLLECTION": msg["unique"],
+        "ESTELA_CONTEXT": "remote",
     }
     return args, env
 
