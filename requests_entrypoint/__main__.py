@@ -18,6 +18,10 @@ def execute(args, hdlr):
     command = " ".join(args)
     logger.info("Running command: %s", command)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=os.environ)
+    for line in process.stdout:
+        logger.info("%s", line)
+    for line in process.stderr:
+        logger.error("%s", line)
     returncode = process.wait()
     if returncode != 0:
         raise SpiderCodeException(f"Spider code returned non-zero exit code: {returncode}")
