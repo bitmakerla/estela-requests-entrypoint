@@ -10,7 +10,7 @@ setup(
     install_requires=[
         "requests",
         "estela-queue-adapter @ git+https://github.com/bitmakerla/estela-queue-adapter.git",
-        "estela-requests @ git+https://github.com/bitmakerla/estela-requests.git",
+        "estela-requests",
     ],
     entry_points={
         "console_scripts": [
