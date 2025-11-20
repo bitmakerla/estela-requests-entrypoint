@@ -56,7 +56,15 @@ def describe_project():
     }
     print(json.dumps(result))
     return 0
-    
+
+
+def report_deploy():
+    """Report deployment status to Estela API and manage ECR images."""
+    from requests_entrypoint.report_deploy_handler import ReportDeployHandler
+
+    handler = ReportDeployHandler()
+    return handler.run()
+
 
 def main():
     from requests_entrypoint.utils import producer

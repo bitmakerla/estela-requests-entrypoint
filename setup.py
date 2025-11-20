@@ -9,6 +9,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "requests",
+        "boto3",
         "estela-queue-adapter @ git+https://github.com/bitmakerla/estela-queue-adapter.git",
         "estela-requests",
     ],
@@ -16,6 +17,7 @@ setup(
         "console_scripts": [
             "estela-crawl = requests_entrypoint.__main__:main",
             "estela-describe-project = requests_entrypoint.__main__:describe_project",
+            "estela-report-deploy = requests_entrypoint.__main__:report_deploy",
         ],
     },
     classifiers=[
