@@ -1,3 +1,4 @@
 requests
+boto3
 estela-queue-adapter @ git+https://github.com/bitmakerla/estela-queue-adapter.git
 estela-requests
