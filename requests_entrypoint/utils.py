@@ -18,6 +18,7 @@ def get_args_and_env(msg):
         "ESTELA_COLLECTION": msg["collection"],
         "ESTELA_UNIQUE_COLLECTION": msg["unique"],
         "ESTELA_CONTEXT": "remote",
+        "ESTELA_SPIDER_ARGS": json.dumps(msg.get("args", {})),
     }
     return args, env
 
