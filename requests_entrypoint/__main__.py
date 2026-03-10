@@ -44,9 +44,37 @@ def setup_and_launch():
         logging.exception("Environment variables were not defined properly.")
         raise
 
+    _start_proxy_tunnel_if_needed()
     # run code.
     execute(args, None)
 
+def _start_proxy_tunnel_if_needed():
+    if not os.environ.get("ESTELA_PROXIES_ENABLED"):
+        return
+    proxy_user = os.environ.get("ESTELA_PROXY_USER", "")
+    proxy_pass = os.environ.get("ESTELA_PROXY_PASS", "")
+    proxy_url  = os.environ.get("ESTELA_PROXY_URL", "")
+    proxy_port = os.environ.get("ESTELA_PROXY_PORT", "")
+    if not all([proxy_user, proxy_pass, proxy_url]):
+        logger.warning("[proxy] Variables de proxy incompletas, skipping tunnel.")
+        return
+    logger.info("[proxy] Starting mitmproxy tunnel -> %s:%s", proxy_url, proxy_port)
+    subprocess.Popen(
+        [
+            "mitmdump",
+            "--listen-host", "127.0.0.1",
+            "--listen-port", "8888",
+            "--mode", f"upstream:http://{proxy_url}:{proxy_port}",
+            "--upstream-auth", f"{proxy_user}:{proxy_pass}",
+            "--ssl-insecure",
+            "--set", "http2=false",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    import time
+    time.sleep(5)
+    logger.info("[proxy] Tunnel listo en 127.0.0.1:8888")
 
 def describe_project():
     from requests_entrypoint.spider_file_helpers import get_spider_names
