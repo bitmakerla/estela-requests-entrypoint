@@ -48,6 +48,8 @@ def setup_and_launch():
     # run code.
     execute(args, None)
 
+# Temporary workaround to support authenticated proxies in Selenium/Chrome.
+# This will be replaced by a proper solution in future versions.
 def _start_proxy_tunnel_if_needed():
     if not os.environ.get("ESTELA_PROXIES_ENABLED"):
         return
@@ -56,7 +58,7 @@ def _start_proxy_tunnel_if_needed():
     proxy_url  = os.environ.get("ESTELA_PROXY_URL", "")
     proxy_port = os.environ.get("ESTELA_PROXY_PORT", "")
     if not all([proxy_user, proxy_pass, proxy_url]):
-        logger.warning("[proxy] Variables de proxy incompletas, skipping tunnel.")
+        logger.warning("[proxy] Incomplete proxy variables, skipping tunnel.")
         return
     logger.info("[proxy] Starting mitmproxy tunnel -> %s:%s", proxy_url, proxy_port)
     subprocess.Popen(
@@ -74,7 +76,7 @@ def _start_proxy_tunnel_if_needed():
     )
     import time
     time.sleep(5)
-    logger.info("[proxy] Tunnel listo en 127.0.0.1:8888")
+    logger.info("[proxy] Tunnel ready at 127.0.0.1:8888")
 
 def describe_project():
     from requests_entrypoint.spider_file_helpers import get_spider_names
