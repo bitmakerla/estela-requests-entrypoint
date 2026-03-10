@@ -51,7 +51,12 @@ def setup_and_launch():
 # Temporary workaround to support authenticated proxies in Selenium/Chrome.
 # This will be replaced by a proper solution in future versions.
 def _start_proxy_tunnel_if_needed():
+    import shutil
+
     if not os.environ.get("ESTELA_PROXIES_ENABLED"):
+        return
+    if not shutil.which("mitmdump"):
+        logger.info("[proxy] mitmdump not found, skipping tunnel (requests-only project).")
         return
     proxy_user = os.environ.get("ESTELA_PROXY_USER", "")
     proxy_pass = os.environ.get("ESTELA_PROXY_PASS", "")
@@ -74,9 +79,17 @@ def _start_proxy_tunnel_if_needed():
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
+    import socket
     import time
-    time.sleep(5)
-    logger.info("[proxy] Tunnel ready at 127.0.0.1:8888")
+    for _ in range(20):
+        try:
+            s = socket.create_connection(("127.0.0.1", 8888), timeout=1)
+            s.close()
+            logger.info("[proxy] Tunnel ready on 127.0.0.1:8888")
+            return
+        except OSError:
+            time.sleep(0.5)
+    logger.warning("[proxy] Tunnel did not start after 10s, proceeding anyway.")
 
 def describe_project():
     from requests_entrypoint.spider_file_helpers import get_spider_names
